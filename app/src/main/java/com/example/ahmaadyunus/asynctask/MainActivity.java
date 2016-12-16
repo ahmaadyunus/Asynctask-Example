@@ -6,12 +6,15 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    ProgressBar progress_bar;
     ListView name_list;
     private String[] users = {
             "name","address","age","city","state",
@@ -19,7 +22,17 @@ public class MainActivity extends AppCompatActivity {
             "name","address","age","city","state",
             "name","address","age","city","state",
             "name","address","age","city","state",
-            "name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
+            "name","address","age","city","state","name","address","age","city","state","name","address","age","city","state","name","address","age","city","state",
             "name","address","age","city","state",
             "name","address","age","city","state"
     };
@@ -28,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        progress_bar = (ProgressBar)findViewById(R.id.progressBar);
+
+        progress_bar.setVisibility(View.VISIBLE);
         name_list = (ListView)findViewById(R.id.listView);
 
         name_list.setAdapter(new ArrayAdapter<String>
@@ -53,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     arr_to_list_view.cancel(true);
+                    progress_bar.setVisibility(View.INVISIBLE);
                     dialog.dismiss();
                 }
             });
@@ -78,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
             adapter.add(values[0]);
             counter ++;
             Integer current_status = (int) ((counter / (float) users.length) * 100);
+            progress_bar.setProgress(current_status);
             //set progress only working for horizontal loading
             progress_dialog.setProgress(current_status);
             //setmessage will not working when using horizontal loading
@@ -85,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         protected void onPostExecute(Void result) {
+            progress_bar.setVisibility(View.INVISIBLE);
             progress_dialog.dismiss();
 
         }
